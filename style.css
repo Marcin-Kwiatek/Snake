@@ -8,4 +8,19 @@ body{
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+}
+.snakeTile{
+    width: 30px;
+    min-height: 30px;
+    position: absolute;
+    background-color:green;
+}
+#snakeTile1{
+    top: 0;
+    left: 0;
+}
+#snakeTile2{
+    top: 30px;
+    left: 0;
 }
