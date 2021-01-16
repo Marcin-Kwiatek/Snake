@@ -1,7 +1,9 @@
 function snakeGoDown() {
     removeFirstTile()
-    addLastTile() 
+    addLastTile()
 }
+
+let direction = "down"
 
 function getArrNumberSnakeTile() {
     let resultNumberValues = []
@@ -33,20 +35,46 @@ function addLastTile() {
     let lastElement = document.getElementById(lastElementId)
     let lastElementStyle = getComputedStyle(lastElement)
     let lastElementTop = parseInt(lastElementStyle.top)
-    if (30 + lastElementTop < 300) {
-        newTile.style.top = (30 + lastElementTop).toString() + "px"
+    let lastElementLeft = parseInt(lastElementStyle.left)
+    if (direction === "down") {
+        if (30 + lastElementTop < 300) {
+            newTile.style.top = (30 + lastElementTop).toString() + "px"
+            newTile.style.left = lastElementLeft + "px"
+        }
+        else {
+            newTile.style.top = "0px"
+            newTile.style.left = lastElementLeft + "px"
+        }
     }
-    else { newTile.style.top = "0px" }
+    if (direction === "right") {
+        if (30 + lastElementLeft < 300) {
+            newTile.style.left = (30 + lastElementLeft).toString() + "px"
+            newTile.style.top = lastElementTop + "px"
+        }
+        else {
+            newTile.style.left = "0px"
+            newTile.style.top = lastElementTop + "px"
+        }
+    }
     let canvasElement = document.getElementById("canvas")
     canvasElement.appendChild(newTile)
 
+
 }
 
-function onKeyDown(event){
-    if(event.keyCode===40){console.log("down")}
-    if(event.keyCode===39){console.log("right")}
-    if(event.keyCode===38){console.log("up")}
-    if(event.keyCode===37){console.log("left")}
+function onKeyDown(event) {
+    if (event.keyCode === 40 && direction !== "up") {
+        direction = "down"
+    }
+    if (event.keyCode === 39 && direction !== "left") {
+        direction = "right"
+    }
+    if (event.keyCode === 38 && direction !== "down") {
+        direction = "up"
+    }
+    if (event.keyCode === 37 && direction !== "right") {
+        direction = "left"
+    }
 
 }
 
