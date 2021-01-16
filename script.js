@@ -42,6 +42,16 @@ function addLastTile() {
 
 }
 
+function onKeyDown(event){
+    if(event.keyCode===40){console.log("down")}
+    if(event.keyCode===39){console.log("right")}
+    if(event.keyCode===38){console.log("up")}
+    if(event.keyCode===37){console.log("left")}
+
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     window.setInterval(snakeGoDown, 1000)
+    document.addEventListener("keydown", onKeyDown)
+
 })
