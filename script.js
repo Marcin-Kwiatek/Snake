@@ -1,26 +1,47 @@
 function snakeGoDown() {
-    for (let i = 1; i <= 3; i++) {
-        let element = document.getElementById("snakeTile" + i)
-        let style = getComputedStyle(element)
-        let numberCurrentTop = parseInt(style.top)
-        if (30 + numberCurrentTop < 300) {
-            element.style.top = (30 + numberCurrentTop).toString() + "px"
-        }
-        else { element.style.top = "0px" }
-    }
+    removeFirstTile()
+    addLastTile() 
 }
 
-function removeFirstTile(){
+function getArrNumberSnakeTile() {
     let resultNumberValues = []
     let elements = document.getElementsByClassName("snakeTile")
-    for (i=0;i<elements.length;i++){
-    let valueSnakeTile = elements[i].id.replace('snakeTile','')
-    let numberValueSnakeTile = parseInt(valueSnakeTile)
-    resultNumberValues.push(numberValueSnakeTile)
+    for (i = 0; i < elements.length; i++) {
+        let valueSnakeTile = elements[i].id.replace('snakeTile', '')
+        let numberValueSnakeTile = parseInt(valueSnakeTile)
+        resultNumberValues.push(numberValueSnakeTile)
     }
-    let minValue = Math.min(...resultNumberValues)
-    
+    return resultNumberValues
 }
+
+function removeFirstTile() {
+    let resultNumberValues = getArrNumberSnakeTile()
+    let minValue = Math.min(...resultNumberValues)
+    let firstElementId = 'snakeTile' + minValue
+    document.getElementById(firstElementId).remove()
+
+}
+
+function addLastTile() {
+    let resultNumberValues = getArrNumberSnakeTile()
+    let maxValue = Math.max(...resultNumberValues)
+    let lastElementId = 'snakeTile' + maxValue
+    let newTile = document.createElement("div")
+    newTile.classList.add("snakeTile")
+    let newTileId = 'snakeTile' + (maxValue + 1)
+    newTile.id = newTileId
+    let lastElement = document.getElementById(lastElementId)
+    let lastElementStyle = getComputedStyle(lastElement)
+    let lastElementTop = parseInt(lastElementStyle.top)
+    if (30 + lastElementTop < 300) {
+        newTile.style.top = (30 + lastElementTop).toString() + "px"
+    }
+    else { newTile.style.top = "0px" }
+    let canvasElement = document.getElementById("canvas")
+    canvasElement.appendChild(newTile)
+
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     window.setInterval(snakeGoDown, 1000)
 })
