@@ -28,3 +28,9 @@ body{
     top: 60px;
     left: 0;
 }
+.apple{
+    width: 30px;
+    min-height: 30px;
+    position: absolute;
+    background-color: red;
+}
