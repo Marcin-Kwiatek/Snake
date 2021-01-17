@@ -1,4 +1,4 @@
-function snakeGoDown() {
+function snakeGo() {
     removeFirstTile()
     addLastTile()
 }
@@ -56,6 +56,26 @@ function addLastTile() {
             newTile.style.top = lastElementTop + "px"
         }
     }
+    if (direction === "up") {
+        if (lastElementTop - 30 >= 0) {
+            newTile.style.top = (lastElementTop - 30).toString() + "px"
+            newTile.style.left = lastElementLeft + "px"
+        }
+        else {
+            newTile.style.top = "270px"
+            newTile.style.left = lastElementLeft + "px"
+        }
+    }
+    if (direction === "left") {
+        if (lastElementLeft - 30 >= 0) {
+            newTile.style.left = (lastElementLeft - 30).toString() + "px"
+            newTile.style.top = lastElementTop + "px"
+        }
+        else {
+            newTile.style.left = "270px"
+            newTile.style.top = lastElementTop + "px"
+        }
+    }
     let canvasElement = document.getElementById("canvas")
     canvasElement.appendChild(newTile)
 
@@ -79,7 +99,7 @@ function onKeyDown(event) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    window.setInterval(snakeGoDown, 1000)
+    window.setInterval(snakeGo, 1000)
     document.addEventListener("keydown", onKeyDown)
 
 })
