@@ -82,7 +82,7 @@ function addLastTile() {
     }
     let canvasElement = document.getElementById("canvas")
     canvasElement.appendChild(newTile)
-    let {top : appleTop, left : appleLeft} = getElementPositionById("apple")
+    let { top: appleTop, left: appleLeft } = getElementPositionById("apple")
     if (newTile.style.top === (appleTop + "px") && newTile.style.left === (appleLeft + "px")) {
         randomPlaceApple()
     }
@@ -111,6 +111,16 @@ function snakeGo() {
     addLastTile()
 }
 
+function isApplePositionValid(top, left) {
+    let elements = document.getElementsByClassName("snakeTile")
+    for (let i = 0; i < elements.length; i++) {
+        if (top === elements[i].style.top && left === elements[i].style.left) {
+            return false
+        }
+    }
+    return true
+}
+
 function randomPlaceApple() {
     let topArr = []
     let leftArr = []
@@ -120,6 +130,10 @@ function randomPlaceApple() {
     }
     let appleTop = topArr[Math.floor(Math.random() * topArr.length)]
     let appleLeft = leftArr[Math.floor(Math.random() * leftArr.length)]
+    while (isApplePositionValid(appleTop, appleLeft) === false) {
+        appleTop = topArr[Math.floor(Math.random() * topArr.length)]
+        appleLeft = leftArr[Math.floor(Math.random() * leftArr.length)]
+    }
     let apple = document.getElementById("apple")
     apple.style.top = appleTop
     apple.style.left = appleLeft

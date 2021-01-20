@@ -16,18 +16,6 @@ body{
     position: absolute;
     background-color:green;
 }
-#snakeTile1{
-    top: 0;
-    left: 0;
-}
-#snakeTile2{
-    top: 30px;
-    left: 0;
-}
-#snakeTile3{
-    top: 60px;
-    left: 0;
-}
 .apple{
     width: 30px;
     min-height: 30px;
