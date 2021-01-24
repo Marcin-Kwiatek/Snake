@@ -1,5 +1,6 @@
 let newDirection = "down"
-let currentDirection = "down"
+let currentDirection = "down" 
+let snakeGoInterval 
 
 function getElementPositionById(id) {
     let element = document.getElementById(id)
@@ -80,13 +81,15 @@ function addLastTile() {
             newTile.style.top = lastElementTop + "px"
         }
     }
+    if(isPositionValid(newTile.style.top, newTile.style.left) === false){
+        alert("Game over!!!")
+        window.clearInterval(snakeGoInterval)
+         
+
+    }
     let canvasElement = document.getElementById("canvas")
     canvasElement.appendChild(newTile)
-    let { top: appleTop, left: appleLeft } = getElementPositionById("apple")
-    if (newTile.style.top === (appleTop + "px") && newTile.style.left === (appleLeft + "px")) {
-        randomPlaceApple()
-    }
-
+    return newTile
 }
 
 function onKeyDown(event) {
@@ -107,11 +110,17 @@ function onKeyDown(event) {
 
 function snakeGo() {
     currentDirection = newDirection
-    removeFirstTile()
-    addLastTile()
+    let newTile = addLastTile()
+    let { top: appleTop, left: appleLeft } = getElementPositionById("apple")
+    if (newTile.style.top === (appleTop + "px") && newTile.style.left === (appleLeft + "px")) {
+        randomPlaceApple()
+    }
+    else {
+        removeFirstTile()
+    }
 }
 
-function isApplePositionValid(top, left) {
+function isPositionValid(top, left) {
     let elements = document.getElementsByClassName("snakeTile")
     for (let i = 0; i < elements.length; i++) {
         if (top === elements[i].style.top && left === elements[i].style.left) {
@@ -130,7 +139,7 @@ function randomPlaceApple() {
     }
     let appleTop = topArr[Math.floor(Math.random() * topArr.length)]
     let appleLeft = leftArr[Math.floor(Math.random() * leftArr.length)]
-    while (isApplePositionValid(appleTop, appleLeft) === false) {
+    while (isPositionValid(appleTop, appleLeft) === false) {
         appleTop = topArr[Math.floor(Math.random() * topArr.length)]
         appleLeft = leftArr[Math.floor(Math.random() * leftArr.length)]
     }
@@ -141,7 +150,7 @@ function randomPlaceApple() {
 
 document.addEventListener("DOMContentLoaded", function () {
     randomPlaceApple()
-    window.setInterval(snakeGo, 1000)
+    snakeGoInterval = window.setInterval(snakeGo, 1000) 
     document.addEventListener("keydown", onKeyDown)
 
 })
